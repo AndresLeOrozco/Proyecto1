@@ -414,7 +414,7 @@ public class Controlador {
                                     Coordenada coor = new Coordenada(x, y);
                                     co.InsertaSucursal(Codi.getText(), Nom.getText(), Direcc.getText(), dist.getText(), Porc.getText(), canton.getText(), coor);
                                     Agregar.setVisible(false);
-                                    AgregarSucursal(Codi.getText(), Nom.getText(), Direcc.getText(),coor,canton.getText(), Porc.getText(),dist.getText());
+                                    AgregarSucursal(Nom.getText(),Codi.getText(), Direcc.getText(),coor,canton.getText(), Porc.getText(),dist.getText());
                                     co.close();
                                 } else {
                                     JOptionPane.showMessageDialog(Agregar, "Distrito Incorrecto");

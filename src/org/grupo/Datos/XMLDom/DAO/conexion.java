@@ -23,7 +23,7 @@ public class conexion {
         em= new ManejotablaEmpl();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/proyecto?useSSL=false", "root", "andres4646");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/proyecto?useSSL=false", "root", "WonjunMyLove.");
             System.out.println("conexion establecida");
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
@@ -371,6 +371,30 @@ return new Sucursal();
             System.out.println("Exception in connection: " + e.toString());
         }
         return false;
+    }
+
+    public void editarSucursal(String cod, String n, String dir, String Distrito, String Provincia, String Canton) {
+        //sql statement for inserting record
+        String sql = "UPDATE sucursales SET distrito = ?, canton = ?, provincia = ?, nombre_referencia = ?, direccion = ? WHERE codigo = ?";
+
+        try {
+            PreparedStatement statement = cn.prepareStatement(sql);
+            //setting parameter values
+            statement.setString(1, Distrito);
+            statement.setString(2, Canton);
+            statement.setString(3, Provincia);
+            statement.setString(4, n);
+            statement.setString(5, dir);
+            statement.setString(6, cod);
+            //executing query which will return an integer value
+            int rowsInserted = statement.executeUpdate();
+            //if rowInserted is greater than 0 mean rows are inserted
+            if (rowsInserted > 0) {
+                JOptionPane.showMessageDialog(null,"The branch was configured correctly");
+            }
+        } catch (Exception e) {
+            System.out.println("Exception in connection: " + e.toString());
+        }
     }
 
     public static void main (String[]args){

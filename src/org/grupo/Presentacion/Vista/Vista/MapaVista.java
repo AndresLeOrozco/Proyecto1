@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 
 public class MapaVista extends JFrame implements MouseListener {
     private JLabel imag;
@@ -79,19 +80,31 @@ public class MapaVista extends JFrame implements MouseListener {
                         public void mouseClicked(MouseEvent e) {
                             JFrame Agregar = new JFrame();
                             Agregar.setSize(900, 500);
-                            Agregar.setLayout(new GridLayout(5, 2));
+                            Agregar.setLayout(new GridLayout(9, 2));
                             JTextField Nom = new JTextField();
                             Nom.setText(ima.getSucur().getNombreCorto());
                             JTextField tel = new JTextField();
                             tel.setText(ima.getSucur().getDireccion());
-                            JTextField salBase = new JTextField();
-                            salBase.setText(String.valueOf(ima.getSucur().getPorcentajeDeZonaje()));
+                            JTextField prov = new JTextField();
+                            prov.setText(ima.getSucur().getProvincia());
+                            JTextField cant = new JTextField();
+                            cant.setText(ima.getSucur().getCanton());
+                            JTextField dist = new JTextField();
+                            dist.setText(ima.getSucur().getDistrito());
 
                             JLabel codi = new JLabel("Codigo de Sucursal: ");
                             JLabel nomb = new JLabel("Nombre de Sucursal: ");
                             JLabel direcc = new JLabel("Direccion: ");
-                            JLabel porc = new JLabel("Porcentaje de Zonaje: ");
+                            JLabel Porc = new JLabel("Porcentaje de la zona: ");
+                            JLabel PROV = new JLabel("Escriba el nombre de la provincia donde se encuentra: ");
+                            //VALIDACION DE PROVINCIA DIGITADA
+                            JLabel CANT = new JLabel("Escriba el nombre del canton donde se encuentra: ");
+                            //validacion de canton que se encuentre en la provincia
+                            JLabel DIST = new JLabel("Escriba el nombre del distrito donde se encuentra: ");
+                            //validacion de distrito en el canton
                             JLabel Codi = new JLabel(ima.getSucur().getCodigo());
+                            JLabel porc = new JLabel(String.valueOf(ima.getSucur().getPorcentajeDeZonaje()));
+
 
                             JButton Guard = new JButton("Guardar");
                             Guard.setBackground(Color.GREEN);
@@ -108,14 +121,33 @@ public class MapaVista extends JFrame implements MouseListener {
                             Guard.addActionListener(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
+                                    Controlador.co.conect();
                                     try {
-                                        ima.getSucur().setNombreCorto(Nom.getText());
-                                        ima.getSucur().setDireccion(tel.getText());
-                                        ima.getSucur().setPorcentajeDeZonaje(Double.parseDouble(salBase.getText()));
-                                        Agregar.setVisible(false);
-                                        Controlador.reestart();
+                                        if (Controlador.co.ValidacionProvincia(prov.getText())) {
+                                            if (Controlador.co.ValidacionCanton(prov.getText(), cant.getText())) {
+                                                if (Controlador.co.ValidacionDistrito(cant.getText(), dist.getText())) {
+                                                    Controlador.co.editarSucursal(ima.getSucur().getCodigo(), Nom.getText(),tel.getText(), dist.getText(),prov.getText(),cant.getText());
+                                                    ima.getSucur().setNombreCorto(Nom.getText());
+                                                    ima.getSucur().setDireccion(tel.getText());
+                                                    ima.getSucur().setProvincia(prov.getText());
+                                                    ima.getSucur().setCanton(cant.getText());
+                                                    ima.getSucur().setDistrito(dist.getText());
+                                                    Agregar.setVisible(false);
+                                                    Controlador.reestart();
+                                                    Controlador.co.close();
+                                                } else {
+                                                    JOptionPane.showMessageDialog(Agregar, "Distrito Incorrecto");
+                                                }
+                                            } else {
+                                                JOptionPane.showMessageDialog(Agregar, "Canton Incorrecto");
+                                            }
+                                        } else {
+                                            JOptionPane.showMessageDialog(Agregar, "Provincia Incorrecta");
+                                        }
                                     } catch (NumberFormatException x) {
                                         JOptionPane.showMessageDialog(null, "Debe ingresar un numero en el apartado de Porcentaje Zonaje");
+                                    } catch (SQLException ex) {
+                                        throw new RuntimeException(ex);
                                     }
                                 }
                             });
@@ -126,8 +158,14 @@ public class MapaVista extends JFrame implements MouseListener {
                             Agregar.add(Nom);
                             Agregar.add(direcc);
                             Agregar.add(tel);
+                            Agregar.add(Porc);
                             Agregar.add(porc);
-                            Agregar.add(salBase);
+                            Agregar.add(PROV);
+                            Agregar.add(prov);
+                            Agregar.add(CANT);
+                            Agregar.add(cant);
+                            Agregar.add(DIST);
+                            Agregar.add(dist);
                             Agregar.add(Guard);
                             Agregar.add(Cancelar);
                             Agregar.setVisible(true);
@@ -163,29 +201,63 @@ public class MapaVista extends JFrame implements MouseListener {
                         public void mouseClicked(MouseEvent e) {
                             JFrame Agregar = new JFrame();
                             Agregar.setSize(900, 500);
-                            Agregar.setLayout(new GridLayout(5, 2));
+                            Agregar.setLayout(new GridLayout(9, 2));
                             JTextField Nom = new JTextField();
                             Nom.setText(ima.getSucur().getNombreCorto());
                             JTextField tel = new JTextField();
                             tel.setText(ima.getSucur().getDireccion());
-                            JTextField salBase = new JTextField();
-                            salBase.setText(String.valueOf(ima.getSucur().getPorcentajeDeZonaje()));
+                            JTextField prov = new JTextField();
+                            prov.setText(ima.getSucur().getProvincia());
+                            JTextField cant = new JTextField();
+                            cant.setText(ima.getSucur().getCanton());
+                            JTextField dist = new JTextField();
+                            dist.setText(ima.getSucur().getDistrito());
 
                             JLabel codi = new JLabel("Codigo de Sucursal: ");
                             JLabel nomb = new JLabel("Nombre de Sucursal: ");
                             JLabel direcc = new JLabel("Direccion: ");
-                            JLabel porc = new JLabel("Porcentaje de Zonaje: ");
+                            JLabel Porc = new JLabel("Porcentaje de la zona: ");
+                            JLabel PROV = new JLabel("Escriba el nombre de la provincia donde se encuentra: ");
+                            //VALIDACION DE PROVINCIA DIGITADA
+                            JLabel CANT = new JLabel("Escriba el nombre del canton donde se encuentra: ");
+                            //validacion de canton que se encuentre en la provincia
+                            JLabel DIST = new JLabel("Escriba el nombre del distrito donde se encuentra: ");
+                            //validacion de distrito en el canton
                             JLabel Codi = new JLabel(ima.getSucur().getCodigo());
+                            JLabel porc = new JLabel(String.valueOf(ima.getSucur().getPorcentajeDeZonaje()));
 
                             JButton Guard = new JButton("Guardar");
                             Guard.addActionListener(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
-                                    ima.getSucur().setNombreCorto(Nom.getText());
-                                    ima.getSucur().setDireccion(tel.getText());
-                                    ima.getSucur().setPorcentajeDeZonaje(Double.parseDouble(salBase.getText()));
-                                    Agregar.setVisible(false);
-                                    Controlador.reestart();
+                                    Controlador.co.conect();
+                                    try {
+                                        if (Controlador.co.ValidacionProvincia(prov.getText())) {
+                                            if (Controlador.co.ValidacionCanton(prov.getText(), cant.getText())) {
+                                                if (Controlador.co.ValidacionDistrito(cant.getText(), dist.getText())) {
+                                                    Controlador.co.editarSucursal(ima.getSucur().getCodigo(), Nom.getText(),tel.getText(), dist.getText(),prov.getText(),cant.getText());
+                                                    ima.getSucur().setNombreCorto(Nom.getText());
+                                                    ima.getSucur().setDireccion(tel.getText());
+                                                    ima.getSucur().setProvincia(prov.getText());
+                                                    ima.getSucur().setCanton(cant.getText());
+                                                    ima.getSucur().setDistrito(dist.getText());
+                                                    Agregar.setVisible(false);
+                                                    Controlador.reestart();
+                                                    Controlador.co.close();
+                                                } else {
+                                                    JOptionPane.showMessageDialog(Agregar, "Distrito Incorrecto");
+                                                }
+                                            } else {
+                                                JOptionPane.showMessageDialog(Agregar, "Canton Incorrecto");
+                                            }
+                                        } else {
+                                            JOptionPane.showMessageDialog(Agregar, "Provincia Incorrecta");
+                                        }
+                                    } catch (NumberFormatException x) {
+                                        JOptionPane.showMessageDialog(null, "Debe ingresar un numero en el apartado de Porcentaje Zonaje");
+                                    } catch (SQLException ex) {
+                                        throw new RuntimeException(ex);
+                                    }
                                 }
                             });
 
@@ -195,8 +267,14 @@ public class MapaVista extends JFrame implements MouseListener {
                             Agregar.add(Nom);
                             Agregar.add(direcc);
                             Agregar.add(tel);
+                            Agregar.add(Porc);
                             Agregar.add(porc);
-                            Agregar.add(salBase);
+                            Agregar.add(PROV);
+                            Agregar.add(prov);
+                            Agregar.add(CANT);
+                            Agregar.add(cant);
+                            Agregar.add(DIST);
+                            Agregar.add(dist);
                             Agregar.add(Guard);
                             Agregar.setVisible(true);
                         }
@@ -260,29 +338,60 @@ public class MapaVista extends JFrame implements MouseListener {
                         public void mouseClicked(MouseEvent e) {
                             JFrame Agregar = new JFrame();
                             Agregar.setSize(900, 500);
-                            Agregar.setLayout(new GridLayout(5, 2));
+                            Agregar.setLayout(new GridLayout(9, 2));
                             JTextField Nom = new JTextField();
                             Nom.setText(ima.getSucur().getNombreCorto());
                             JTextField tel = new JTextField();
                             tel.setText(ima.getSucur().getDireccion());
-                            JTextField salBase = new JTextField();
-                            salBase.setText(String.valueOf(ima.getSucur().getPorcentajeDeZonaje()));
+                            JTextField prov = new JTextField();
+                            prov.setText(ima.getSucur().getProvincia());
+                            JTextField cant = new JTextField();
+                            cant.setText(ima.getSucur().getCanton());
+                            JTextField dist = new JTextField();
+                            dist.setText(ima.getSucur().getDistrito());
 
                             JLabel codi = new JLabel("Codigo de Sucursal: ");
                             JLabel nomb = new JLabel("Nombre de Sucursal: ");
                             JLabel direcc = new JLabel("Direccion: ");
-                            JLabel porc = new JLabel("Porcentaje de Zonaje: ");
+                            JLabel Porc = new JLabel("Porcentaje de la zona: ");
+                            JLabel PROV = new JLabel("Escriba el nombre de la provincia donde se encuentra: ");
+                            JLabel CANT = new JLabel("Escriba el nombre del canton donde se encuentra: ");
+                            JLabel DIST = new JLabel("Escriba el nombre del distrito donde se encuentra: ");
                             JLabel Codi = new JLabel(ima.getSucur().getCodigo());
+                            JLabel porc = new JLabel(String.valueOf(ima.getSucur().getPorcentajeDeZonaje()));
 
                             JButton Guard = new JButton("Guardar");
                             Guard.addActionListener(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
-                                    ima.getSucur().setNombreCorto(Nom.getText());
-                                    ima.getSucur().setDireccion(tel.getText());
-                                    ima.getSucur().setPorcentajeDeZonaje(Double.parseDouble(salBase.getText()));
-                                    Agregar.setVisible(false);
-                                    Controlador.reestart();
+                                    Controlador.co.conect();
+                                    try {
+                                        if (Controlador.co.ValidacionProvincia(prov.getText())) {
+                                            if (Controlador.co.ValidacionCanton(prov.getText(), cant.getText())) {
+                                                if (Controlador.co.ValidacionDistrito(cant.getText(), dist.getText())) {
+                                                    Controlador.co.editarSucursal(ima.getSucur().getCodigo(), Nom.getText(),tel.getText(), dist.getText(),prov.getText(),cant.getText());
+                                                    ima.getSucur().setNombreCorto(Nom.getText());
+                                                    ima.getSucur().setDireccion(tel.getText());
+                                                    ima.getSucur().setProvincia(prov.getText());
+                                                    ima.getSucur().setCanton(cant.getText());
+                                                    ima.getSucur().setDistrito(dist.getText());
+                                                    Agregar.setVisible(false);
+                                                    Controlador.reestart();
+                                                    Controlador.co.close();
+                                                } else {
+                                                    JOptionPane.showMessageDialog(Agregar, "Distrito Incorrecto");
+                                                }
+                                            } else {
+                                                JOptionPane.showMessageDialog(Agregar, "Canton Incorrecto");
+                                            }
+                                        } else {
+                                            JOptionPane.showMessageDialog(Agregar, "Provincia Incorrecta");
+                                        }
+                                    } catch (NumberFormatException x) {
+                                        JOptionPane.showMessageDialog(null, "Debe ingresar un numero en el apartado de Porcentaje Zonaje");
+                                    } catch (SQLException ex) {
+                                        throw new RuntimeException(ex);
+                                    }
                                 }
                             });
 
@@ -292,8 +401,14 @@ public class MapaVista extends JFrame implements MouseListener {
                             Agregar.add(Nom);
                             Agregar.add(direcc);
                             Agregar.add(tel);
+                            Agregar.add(Porc);
                             Agregar.add(porc);
-                            Agregar.add(salBase);
+                            Agregar.add(PROV);
+                            Agregar.add(prov);
+                            Agregar.add(CANT);
+                            Agregar.add(cant);
+                            Agregar.add(DIST);
+                            Agregar.add(dist);
                             Agregar.add(Guard);
                             Agregar.setVisible(true);
                         }
