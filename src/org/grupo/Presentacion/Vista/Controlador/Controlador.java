@@ -488,6 +488,10 @@ public class Controlador {
                 if (b) {
                     modeloSuc.getListaDeSucursales().remove(cod);
 
+                    co.conect();
+                    co.BorrarSucursal(cod);
+                    co.close();
+
                     reestart();
 
                     guardaXMLEmpleados(modelo_empleado);
@@ -505,6 +509,8 @@ public class Controlador {
 
         } catch (ArrayIndexOutOfBoundsException x) {
             JOptionPane.showMessageDialog(view, "Debe seleccionar un espacio de la tabla para poder eliminarlo");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 

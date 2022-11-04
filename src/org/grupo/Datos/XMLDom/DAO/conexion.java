@@ -23,7 +23,7 @@ public class conexion {
         em= new ManejotablaEmpl();
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/proyecto?useSSL=false", "root", "hola123");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/proyecto?useSSL=false", "root", "andres4646");
             System.out.println("conexion establecida");
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
@@ -62,6 +62,22 @@ public class conexion {
 
     }
 
+     public void BorrarSucursal(String cod){
+        String sql = "delete from sucursales where codigo = ?";
+        try {
+            PreparedStatement statement = cn.prepareStatement(sql);
+            //setting parameter values
+            statement.setString(1, cod);
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+               JOptionPane.showMessageDialog(null,"A new user was inserted successfully!");
+           }
+        } catch (Exception e) {
+            System.out.println("Exception in connection: " + e.toString());
+        }
+
+    }
+
     public void InsertaSucursal(String n, String cod, String dir, String Distrito, String Provincia, String Canton, Coordenada co) {
 
         //sql statement for inserting record
@@ -82,9 +98,9 @@ public class conexion {
             statement.setString(6, Provincia);
             statement.setString(7, n);
             statement.setString(8, dir);
-            //executing query which will return an integer value
+
             int rowsInserted = statement.executeUpdate();
-            //if rowInserted is greater than 0 mean rows are inserted
+
             if (rowsInserted > 0) {
                JOptionPane.showMessageDialog(null,"A new user was inserted successfully!");
             }
