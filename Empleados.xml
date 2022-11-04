@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?><Empleados><Empleado><cedula>1111</cedula><nombre>pedro</nombre><telefono>189293</telefono><salario>1000.0</salario><sucursal>123</sucursal><zonaje>1.0</zonaje><salarioTotal>2000.0</salarioTotal></Empleado></Empleados>
+<?xml version="1.0" encoding="UTF-8"?><Empleados/>

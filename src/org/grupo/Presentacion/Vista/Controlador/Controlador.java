@@ -115,19 +115,17 @@ public class Controlador {
     }
 
     public static void buscar(String nombre, JTable tabla) {
+        ManejotablaEmpl m = new ManejotablaEmpl();
 
         ModeloTableModelEmpleado resultado = new ModeloTableModelEmpleado();
 
         HashMap<String, Empleado> dos = modelo_empleado.getListaDeEmpleados();
         if (!nombre.isEmpty()) {
-            for (Map.Entry<String, Empleado> empleado : dos.entrySet()) {
-                if (empleado.getValue().getCedula().contains(nombre)) {
-                    resultado.addEmpleado(empleado.getValue());
-                }
-            }
-        } else
+            m.Buscar(tabla,nombre);
+        } else {
             resultado = modelo_empleado;
-        tabla.setModel(resultado);
+            tabla.setModel(resultado);
+        }
     }
 
     //Action Listeners de Empleado V;

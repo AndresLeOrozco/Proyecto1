@@ -1,8 +1,6 @@
 package org.grupo.Datos.XMLDom.DAO;
 
-import org.grupo.Negocio.Coordenada;
-import org.grupo.Negocio.Empleado;
-import org.grupo.Negocio.Sucursal;
+import org.grupo.Negocio.*;
 
 import javax.swing.*;
 import java.net.ConnectException;
@@ -64,6 +62,29 @@ public class ManejotablaEmpl {
             System.out.println("Exception in connection: " + e.toString());
 
         }
+    }
+
+    public void Buscar(JTable tab, String Bus){
+        conexion conn = new conexion();
+        ModeloTableModelEmpleado mod = new ModeloTableModelEmpleado();
+        String sql = "select * from empleados where concat(id_empleado,nombre,tel,sal,sucursal_id) like '%"+Bus+"%'";
+        try {
+            Statement st;
+            st =conn.conect().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+               Sucursal suc = conexion.getSucursal(rs.getString("sucursal_id"));
+                Empleado s = new Empleado(rs.getString("id_empleado"),rs.getString("nombre"),rs.getString("tel")
+                ,Double.parseDouble(rs.getString("sal")),suc);
+                mod.addEmpleado(s);
+            }
+            conn.close();
+            tab.setModel(mod);
+        } catch (Exception e) {
+            System.out.println("Exception in connection: " + e.toString());
+        }
+
     }
 
     public static void UpdateEmp(Empleado emp) {

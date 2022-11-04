@@ -30,6 +30,8 @@ public class conexion {
         }
         return cn;
     }
+
+
     public void close() throws SQLException {
         cn.close();
     }
@@ -37,6 +39,8 @@ public class conexion {
 
        return em.MostrarListaEmplea();
     }
+
+
 
     public boolean empleadosRelacionadosAsucursal(String cod){
         String sql = "select * from empleados where sucursal_id = "+cod;
