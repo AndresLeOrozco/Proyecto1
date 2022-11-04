@@ -37,6 +37,23 @@ public class conexion {
 
        return em.MostrarListaEmplea();
     }
+
+    public boolean empleadosRelacionadosAsucursal(String cod){
+        String sql = "select * from empleados where sucursal_id = "+cod;
+        try {
+            Statement st;
+            st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+           if(rs.next()){
+               return true;
+           }
+        } catch (Exception e) {
+            System.out.println("Exception in connection: " + e.toString());
+        }
+        return false;
+    }
+
     public void Buscar(JTable tab, String Bus){
         ModeloTableModelSucursal mod = new ModeloTableModelSucursal();
         String sql = "select * from sucursales where concat(codigo,canton,distrito,provincia,nombre_referencia) like '%"+Bus+"%'";
@@ -70,7 +87,7 @@ public class conexion {
             statement.setString(1, cod);
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
-               JOptionPane.showMessageDialog(null,"A new user was inserted successfully!");
+               JOptionPane.showMessageDialog(null,"La sucursal se elimino con exito!");
            }
         } catch (Exception e) {
             System.out.println("Exception in connection: " + e.toString());
@@ -364,6 +381,7 @@ return new Sucursal();
 //            System.out.println(c.ValidacionDistrito("'Desamparados'","'San Antonio'"));
         //System.out.println(c.ValidacionProvincia("Heredia"));
         //System.out.println(c.ExisteCodigo(4));
+       System.out.println( c.empleadosRelacionadosAsucursal("123"));
 
         try {
             c.cn.close();

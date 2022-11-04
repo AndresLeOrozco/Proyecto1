@@ -431,6 +431,7 @@ public class Controlador {
                         JOptionPane.showMessageDialog(Agregar, "Invalido, Codigo Repetido");
 
                     }
+                    co.close();
                 }catch(NumberFormatException ex){
                     JOptionPane.showMessageDialog(Agregar, "Codigo debe ser un numero");
                 } catch (SQLException ex) {
@@ -473,22 +474,20 @@ public class Controlador {
     }
 
     public static void EliminarElemento(@NotNull JTable tabla, char t) {
+        co.conect();
         int fila = tabla.getSelectedRow();
         try {
             String cod = (String) tabla.getValueAt(fila, 0);
             if (t == 's') {
                 boolean b = true;
-                for (Map.Entry<String, Empleado> emps : modelo_empleado.getListaDeEmpleados().entrySet()) {
-                    if (emps.getValue().getSucursal().getCodigo() == cod) {
-                        JOptionPane.showMessageDialog(view, "No puede borrar la sucursal ya que hay empleados relacionados a esta");
-                        b = false;
-                        break;
-                    }
-                }
+               if(co.empleadosRelacionadosAsucursal(cod)) {
+                   b = false;
+                   JOptionPane.showMessageDialog(null,"La sucursal cuenta con empleados relacionados");
+               }
                 if (b) {
                     modeloSuc.getListaDeSucursales().remove(cod);
 
-                    co.conect();
+
                     co.BorrarSucursal(cod);
                     co.close();
 
@@ -509,6 +508,11 @@ public class Controlador {
 
         } catch (ArrayIndexOutOfBoundsException x) {
             JOptionPane.showMessageDialog(view, "Debe seleccionar un espacio de la tabla para poder eliminarlo");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            co.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
