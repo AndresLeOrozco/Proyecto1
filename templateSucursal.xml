@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+  <xsl:output method="xml" indent="yes" />
+  <xsl:template match="Sucursales">
+    <fo:root>
+      <fo:layout-master-set>
+        <fo:simple-page-master master-name="A4-portrait" page-height="29.7cm" page-width="21.0cm" margin="2cm">
+          <fo:region-body />
+        </fo:simple-page-master>
+      </fo:layout-master-set>
+      <fo:page-sequence master-reference="A4-portrait">
+        <fo:flow flow-name="xsl-region-body">
+          <fo:block>Sucursales</fo:block>
+          <fo:table table-layout="fixed" width="100%" font-size="10pt" border-color="black" border-width="0.35mm" border-style="solid" text-align="center" display-align="center" space-after="5mm">
+            <fo:table-column column-width="proportional-column-width(20)" />
+            <fo:table-column column-width="proportional-column-width(20)" />
+            <fo:table-column column-width="proportional-column-width(20)" />
+            <fo:table-column column-width="proportional-column-width(20)" />
+            <fo:table-column column-width="proportional-column-width(20)" />
+            <fo:table-column column-width="proportional-column-width(20)" />
+            <fo:table-body>
+              <fo:table-row>
+                <fo:table-cell>
+                  <fo:block>Código</fo:block>
+                </fo:table-cell>
+                <fo:table-cell>
+                  <fo:block>Nombre Corto</fo:block>
+                </fo:table-cell>
+                <fo:table-cell>
+                  <fo:block>Dirección</fo:block>
+                </fo:table-cell>
+                <fo:table-cell>
+                  <fo:block>Zonaje</fo:block>
+                </fo:table-cell>
+                <fo:table-cell>
+                  <fo:block>X</fo:block>
+                </fo:table-cell>
+                <fo:table-cell>
+                  <fo:block>Y</fo:block>
+                </fo:table-cell>
+              </fo:table-row>
+              <xsl:for-each select="Sucursal">
+                <fo:table-row>
+                  <fo:table-cell>
+                    <fo:block>
+                      <xsl:value-of select="codigo" />
+                    </fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell>
+                    <fo:block>
+                      <xsl:value-of select="nombreCorto" />
+                    </fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell>
+                    <fo:block>
+                      <xsl:value-of select="direccion" />
+                    </fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell>
+                    <fo:block>
+                      <xsl:value-of select="zonaje" />
+                    </fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell>
+                    <fo:block>
+                      <xsl:value-of select="x" />
+                    </fo:block>
+                  </fo:table-cell>
+                  <fo:table-cell>
+                    <fo:block>
+                      <xsl:value-of select="y" />
+                    </fo:block>
+                  </fo:table-cell>
+                </fo:table-row>
+              </xsl:for-each>
+            </fo:table-body>
+          </fo:table>
+        </fo:flow>
+      </fo:page-sequence>
+    </fo:root>
+  </xsl:template>
+</xsl:stylesheet>

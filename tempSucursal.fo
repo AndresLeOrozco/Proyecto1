@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?><fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
+<fo:layout-master-set>
+<fo:simple-page-master margin="2cm" page-width="21.0cm" page-height="29.7cm" master-name="A4-portrait">
+<fo:region-body/>
+</fo:simple-page-master>
+</fo:layout-master-set>
+<fo:page-sequence master-reference="A4-portrait">
+<fo:flow flow-name="xsl-region-body">
+<fo:block>Sucursales</fo:block>
+<fo:table space-after="5mm" display-align="center" text-align="center" border-style="solid" border-width="0.35mm" border-color="black" font-size="10pt" width="100%" table-layout="fixed">
+<fo:table-column column-width="proportional-column-width(20)"/>
+<fo:table-column column-width="proportional-column-width(20)"/>
+<fo:table-column column-width="proportional-column-width(20)"/>
+<fo:table-column column-width="proportional-column-width(20)"/>
+<fo:table-column column-width="proportional-column-width(20)"/>
+<fo:table-column column-width="proportional-column-width(20)"/>
+<fo:table-body>
+<fo:table-row>
+<fo:table-cell>
+<fo:block>Código</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>Nombre Corto</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>Dirección</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>Zonaje</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>X</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>Y</fo:block>
+</fo:table-cell>
+</fo:table-row>
+<fo:table-row>
+<fo:table-cell>
+<fo:block>1111</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>Guacimo</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>Limon</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>2.5</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>409</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>110</fo:block>
+</fo:table-cell>
+</fo:table-row>
+<fo:table-row>
+<fo:table-cell>
+<fo:block>2222</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>Desamparados</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>San Jose</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>1.0</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>302</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>174</fo:block>
+</fo:table-cell>
+</fo:table-row>
+</fo:table-body>
+</fo:table>
+</fo:flow>
+</fo:page-sequence>
+</fo:root>
+<?xml version="1.0" encoding="UTF-8"?><fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
+<fo:layout-master-set>
+<fo:simple-page-master margin="2cm" page-width="21.0cm" page-height="29.7cm" master-name="A4-portrait">
+<fo:region-body/>
+</fo:simple-page-master>
+</fo:layout-master-set>
+<fo:page-sequence master-reference="A4-portrait">
+<fo:flow flow-name="xsl-region-body">
+<fo:block>Sucursales</fo:block>
+<fo:table space-after="5mm" display-align="center" text-align="center" border-style="solid" border-width="0.35mm" border-color="black" font-size="10pt" width="100%" table-layout="fixed">
+<fo:table-column column-width="proportional-column-width(20)"/>
+<fo:table-column column-width="proportional-column-width(20)"/>
+<fo:table-column column-width="proportional-column-width(20)"/>
+<fo:table-column column-width="proportional-column-width(20)"/>
+<fo:table-column column-width="proportional-column-width(20)"/>
+<fo:table-column column-width="proportional-column-width(20)"/>
+<fo:table-body>
+<fo:table-row>
+<fo:table-cell>
+<fo:block>Código</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>Nombre Corto</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>Dirección</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>Zonaje</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>X</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>Y</fo:block>
+</fo:table-cell>
+</fo:table-row>
+<fo:table-row>
+<fo:table-cell>
+<fo:block>1111</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>Guacimo</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>Limon</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>2.5</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>409</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>110</fo:block>
+</fo:table-cell>
+</fo:table-row>
+<fo:table-row>
+<fo:table-cell>
+<fo:block>2222</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>Desamparados</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>San Jose</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>1.0</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>302</fo:block>
+</fo:table-cell>
+<fo:table-cell>
+<fo:block>174</fo:block>
+</fo:table-cell>
+</fo:table-row>
+</fo:table-body>
+</fo:table>
+</fo:flow>
+</fo:page-sequence>
+</fo:root>
